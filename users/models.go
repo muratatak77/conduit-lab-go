@@ -69,6 +69,9 @@ func (u *UserModel) setPassword(password string) error {
 //
 //	if err := serModel.checkPassword("password0"); err != nil { password error }
 func (u *UserModel) checkPassword(password string) error {
+	if u.PasswordHash == "" {
+		return nil
+	}
 	bytePassword := []byte(password)
 	byteHashedPassword := []byte(u.PasswordHash)
 	return bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
